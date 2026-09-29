@@ -4,10 +4,10 @@ namespace GameOfWar
     {
 
         // Create a string property Suit with a private setter
-        private string Suit{get; set;}
+        public string Suit{get; private set;}
 
         // Create an int property Rank with a private setter - values should range from 0 for a face value of 2 to 12 for an Ace
-        private int Rank{get; set;}
+        public int Rank{get; private set;}
 
         // Create a public constructor that takes suit and rank as arguments and assigns them to Suit and Rank
         public Card(string suit, int rank)
