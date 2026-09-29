@@ -4,16 +4,20 @@ namespace GameOfWar
     {
 
         // Create a string property Suit with a private setter
-        private string Suit{set;}
+        private string Suit{get; set;}
 
         // Create an int property Rank with a private setter - values should range from 0 for a face value of 2 to 12 for an Ace
-        private int Rank{set;}
+        private int Rank{get; set;}
 
         // Create a public constructor that takes suit and rank as arguments and assigns them to Suit and Rank
         public Card(string suit, int rank)
         {
             Suit = suit;
-            Rank = rank;
+            if (rank >= 0 && rank <= 12)
+            {
+                Rank = rank;
+            }
+
         }
 
         // Overload the > operator to compare two cards by rank
@@ -34,7 +38,7 @@ namespace GameOfWar
             string[] rankValues = 
             {
                 "2","3","4","5","6","7","8",
-                "9","19","Jack","Queen","King","Ace"
+                "9","10","Jack","Queen","King","Ace"
             };
             
             return rankValues[Rank];

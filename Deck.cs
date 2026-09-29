@@ -1,3 +1,7 @@
+using System.Globalization;
+using System.Linq.Expressions;
+using System.Net.Security;
+
 namespace GameOfWar
 {
     public class Deck
@@ -28,14 +32,51 @@ namespace GameOfWar
         // If cards is null or empty:
         //     _cards should be initialized as an empty List<Card>
         //     InitializeDeck() should be called if and only if isEmptyDeck is false
+        public Deck(List<Card> cards, bool isEmptyDeck)
+        {
+            if (cards != null && cards.Count > 0)
+            {
+                _cards = cards;
+            }
+            else
+            {
+                _cards = new List<Card>();
+                if (!isEmptyDeck)
+                {
+                    InitializeDeck();
+                }
+            }
 
+        }
 
         // Create a private void method called InitializeDeck() which does the following:
         // Use RankNames and Suits in nested loops to generate all 52 combinations of rank and suit and add them to _cards
-
+        private void InitializeDeck()
+        {
+            for (int i = 0; i < 13; i++)
+            {
+                for (int j = 0; j < 4; j++)
+                {
+                    Card newCard = new Card(Suits[j], i);
+                    _cards.Add(newCard);
+                    //fixed it, long story short im an idiot.
+                }
+            }
+        }
 
         // Create a public void method called Shuffle() which shuffles (rearranges) the cards in _cards
+        public void Shuffle()
+        {
+            Random randomCard = new Random();
+            for (int i = 0; i < _cards.Count - 1; i++)
+            {
+                int j = randomCard.Next(0, _cards.Count);
 
+                Card temp = _cards[i];
+                _cards[i] = _cards[j];
+                _cards[j] = temp;
+            }
+        }
 
         // Create a public method CardAtIndex which takes an int parameter for the index of a card and
         // returns the card at the index specified, or throws IndexOutOfRangeException if index is too large or too small
@@ -62,3 +103,7 @@ namespace GameOfWar
         // of bounds
     }
 }
+
+
+
+
