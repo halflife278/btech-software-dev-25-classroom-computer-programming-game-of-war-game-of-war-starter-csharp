@@ -1,8 +1,13 @@
-﻿using GameOfWar;
+﻿using System.Runtime.CompilerServices;
+using GameOfWar;
 
 // Create an instance of the GameState class
+GameState newGame = new GameState();
 // Shuffle CardDeck within your instance
+newGame.CardDeck.Shuffle();
 // Deal 26 cards each from CardDeck to your instance's PlayerDeck and ComputerDeck
+newGame.PlayerDeck.PushCards(newGame.CardDeck.Deal(26));
+newGame.ComputerDeck.PushCards(newGame.CardDeck.Deal(26));
 
 
 // Create a function with the signature: static bool PlayCards(GameState state, int playerCardIndex)
@@ -17,6 +22,43 @@
 //         If the computer deck is empty, the player wins and state.Winner should be set to "Computer"
 //         If the player deck is empty, the computer wins and state.Winner should be set to "Player"
 //     return true
+static bool PlayCards(GameState state, int PlayerCardIndex)
+{
+    Card playerCard = state.PlayerDeck.PullCardAtIndex(PlayerCardIndex);
+    Card computerCard = state.ComputerDeck.PullCardAtIndex(0);
+
+    List<Card> roundCards = new List<Card>();
+    roundCards.Add(playerCard);
+    roundCards.Add(computerCard);
+
+    if (playerCard > computerCard)
+    {
+        roundCards.AddRange(state.TableDeck.PullAllCards());
+
+        state.PlayerDeck.PushCards(roundCards);
+    }
+    else if (computerCard > playerCard)
+    {
+        roundCards.AddRange(state.TableDeck.PullAllCards());
+
+        state.ComputerDeck.PushCards(roundCards);
+    }
+    else
+    {
+        state.TableDeck.PushCard(playerCard);
+        state.TableDeck.PushCard(computerCard);
+    }
+    if (state.ComputerDeck.Count == 0)
+    {
+        state.Winner = "Player";
+    }
+    if (state.PlayerDeck.Count == 0)
+    {
+        state.Winner = "Computer";
+    }
+    return true;
+
+}
 
 
 // Call Lib.RunGame(), passing two parameters: the state object you instantiated above and the name of your PlayCards function

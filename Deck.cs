@@ -33,7 +33,7 @@ namespace GameOfWar
         // If cards is null or empty:
         //     _cards should be initialized as an empty List<Card>
         //     InitializeDeck() should be called if and only if isEmptyDeck is false
-        public Deck(List<Card> cards, bool isEmptyDeck)
+        public Deck(List<Card>? cards, bool isEmptyDeck)
         {
             if (cards != null && cards.Count > 0)
             {
