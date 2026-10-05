@@ -62,6 +62,7 @@ static bool PlayCards(GameState state, int PlayerCardIndex)
 
 
 // Call Lib.RunGame(), passing two parameters: the state object you instantiated above and the name of your PlayCards function
+Lib.RunGame(newGame, PlayCards);
 
 namespace GameOfWar
 {
